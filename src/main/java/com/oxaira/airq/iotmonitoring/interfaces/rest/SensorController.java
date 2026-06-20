@@ -1,8 +1,10 @@
 package com.oxaira.airq.iotmonitoring.interfaces.rest;
 
 import com.oxaira.airq.iotmonitoring.application.dto.CreateSensorRequest;
+import com.oxaira.airq.iotmonitoring.application.service.DeleteSensorUseCase;
 import com.oxaira.airq.iotmonitoring.application.service.GetAllSensorsUseCase;
 import com.oxaira.airq.iotmonitoring.application.service.RegisterSensorUseCase;
+import com.oxaira.airq.iotmonitoring.application.service.UpdateSensorUseCase;
 import com.oxaira.airq.iotmonitoring.domain.model.Sensor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +23,10 @@ public class SensorController {
 
     private final GetAllSensorsUseCase getAllSensorsUseCase;
 
+    private final UpdateSensorUseCase updateSensorUseCase;
+
+    private final DeleteSensorUseCase deleteSensorUseCase;
+
     @PostMapping
     public Sensor create(
             @RequestBody CreateSensorRequest request) {
@@ -31,5 +37,28 @@ public class SensorController {
     @GetMapping
     public List<Sensor> getAll() {
         return getAllSensorsUseCase.execute();
+    }
+
+    @PutMapping("/{id}")
+    public Sensor update(
+
+            @PathVariable Long id,
+
+            @RequestBody CreateSensorRequest request) {
+
+        return updateSensorUseCase.execute(
+                id,
+                request);
+
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(
+
+            @PathVariable Long id) {
+
+        deleteSensorUseCase.execute(
+                id);
+
     }
 }
