@@ -54,11 +54,12 @@ public class SensorController {
 
     @DeleteMapping("/{id}")
     public void delete(
-
             @PathVariable Long id) {
 
-        deleteSensorUseCase.execute(
-                id);
+        System.out.println(
+                "ELIMINANDO SENSOR: "
+                        + id);
 
+        deleteSensorUseCase.execute(id);
     }
 }

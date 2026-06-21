@@ -33,12 +33,18 @@ public class SecurityConfig {
 
                                 .authorizeHttpRequests(auth -> auth
 
-                                                .requestMatchers(
-                                                                "/api/v1/auth/login")
+                                                .requestMatchers("/api/v1/auth/login")
+                                                .permitAll()
+
+                                                .requestMatchers("/api/v1/sensors/**")
                                                 .permitAll()
 
                                                 .requestMatchers(
-                                                                "/api/v1/analytics/**")
+                                                                HttpMethod.POST,
+                                                                "/api/v1/measurements")
+                                                .permitAll()
+
+                                                .requestMatchers("/api/v1/analytics/**")
                                                 .permitAll()
 
                                                 .requestMatchers(
@@ -51,7 +57,8 @@ public class SecurityConfig {
                                                                 "/v3/api-docs/**")
                                                 .permitAll()
 
-                                                .anyRequest().authenticated())
+                                                .anyRequest()
+                                                .authenticated())
 
                                 .addFilterBefore(
                                                 jwtFilter,

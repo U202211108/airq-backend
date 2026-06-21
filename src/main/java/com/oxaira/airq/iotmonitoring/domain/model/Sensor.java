@@ -2,6 +2,8 @@ package com.oxaira.airq.iotmonitoring.domain.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.time.LocalDateTime;
 
@@ -25,4 +27,8 @@ public class Sensor {
     private Boolean active;
 
     private LocalDateTime createdAt;
+
+    @OneToMany(mappedBy = "sensor", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonIgnore
+    private List<Measurement> measurements;
 }
